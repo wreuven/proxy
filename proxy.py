@@ -10,15 +10,13 @@ logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %
 # Configuration (load from JSON file or dictionary)
 CONFIG = {
     "local": {
-        "udp_ports": [12345],
-        "tcp_ports": [12346],
-        "multicast_ports": [
-            {"ip": "239.255.255.250", "port": 1900}
-        ]
+        "udp_ports": [],
+        "tcp_ports": [],
+        "multicast_ports": []
     },
     "remote": {
-        "udp_ports": [54321],
-        "tcp_ports": [65432],
+        "udp_ports": [12345],
+        "tcp_ports": [],
         "multicast_ports": [
             {"ip": "239.192.0.1", "port": 30001}
         ]
