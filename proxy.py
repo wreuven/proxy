@@ -177,6 +177,8 @@ class Proxy:
         """
         src_ip = header["src_ip"]
         src_port = header["src_port"]
+        dest_ip = header["dest_ip"]
+        dest_port = header["dest_port"]
 
         # Check if we already have a socket mapped to this src_ip:src_port
         if (src_ip, src_port) not in self.connection_map:
@@ -190,8 +192,8 @@ class Proxy:
 
         # Send the payload to the destination IP and port
         udp_out_sock = self.connection_map[(src_ip, src_port)]
-        udp_out_sock.sendto(payload, (src_ip, src_port))
-        logging.info(f"Forwarded UDP payload to {src_ip}:{src_port}")
+        udp_out_sock.sendto(payload, (dest_ip, dest_port))
+        logging.info(f"Forwarded UDP payload to {dest_ip}:{dest_port}")
 
     def send_to_tunnel(self, header, data):
         """
