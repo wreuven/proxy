@@ -70,7 +70,8 @@ class Proxy:
             tunnel_port = int(tunnel_port)
             self.tunnel_conn = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             self.tunnel_conn.connect((tunnel_ip, tunnel_port))
-            logging.info(f"Connected to tunnel at {tunnel_ip}:{tunnel_port}")
+            local_ip, local_port = self.tunnel_conn.getsockname()
+            logging.info(f"Connected to tunnel at {tunnel_ip}:{tunnel_port} from local {local_ip}:{local_port}")
         else:
             tunnel_ip = self.config["tunnel"]["ip"]
             tunnel_port = self.config["tunnel"]["port"]
