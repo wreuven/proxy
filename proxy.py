@@ -70,15 +70,15 @@ class Proxy:
             tunnel_port = int(tunnel_port)
             self.tunnel_conn = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             self.tunnel_conn.connect((tunnel_ip, tunnel_port))
-            local_ip, local_port = self.tunnel_conn.getsockname()
-            logging.info(f"Connected to tunnel at {tunnel_ip}:{tunnel_port} from local {local_ip}:{local_port}")
+            logging.info(f"Connected to tunnel at {tunnel_ip}:{tunnel_port}")
         else:
             tunnel_ip = self.config["tunnel"]["ip"]
             tunnel_port = self.config["tunnel"]["port"]
             server_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             server_sock.bind((tunnel_ip, tunnel_port))
             server_sock.listen(1)
-            logging.info(f"Listening for tunnel connections on {tunnel_ip}:{tunnel_port}")
+            local_ip, local_port = server_sock.getsockname()
+            logging.info(f"Tunnel listening at {local_ip}:{local_port}")
             self.tunnel_conn, addr = server_sock.accept()
             logging.info(f"Tunnel connection established with {addr}")
 
